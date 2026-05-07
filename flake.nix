@@ -49,6 +49,7 @@
       systems = import inputs.systems;
       imports = [
         # keep-sorted start
+        ./nix/flake-parts/base-scope.nix
         ./nix/flake-parts/devshells.nix
         ./nix/flake-parts/misc.nix
         ./nix/flake-parts/treefmt.nix
