@@ -18,6 +18,8 @@ lib.makeScope pkgs.newScope (
   {
     inherit inputs;
 
+    inherit (inputs.tools.packages.${system}) nix-flake-check-changed nix-grep-to-build;
+
     terraform = pkgs.terraform.withPlugins (
       _: with tfProviders; [
         hashicorp.aws

@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   perSystem =
-    { system, inputs', ... }:
+    { system, ... }:
     {
       _module.args = {
         pkgs = import inputs.nixpkgs {
@@ -9,6 +9,5 @@
           config.allowUnfree = true;
         };
       };
-      packages = { inherit (inputs'.tools.packages) nix-flake-check-changed nix-grep-to-build; };
     };
 }

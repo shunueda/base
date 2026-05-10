@@ -1,0 +1,270 @@
+;; -*- lexical-binding: t; -*-
+
+;; Core settings
+(setq
+      ;; Don't show the startup message
+      inhibit-startup-message t
+
+      ;; Use super-save
+      auto-save-default nil
+
+      ;; No backup files
+      make-backup-files nil
+
+      ;; Make it easy to cycle through previous items in the mark ring
+      set-mark-command-repeat-pop t
+
+      ;; Don't warn on large files
+      large-file-warning-threshold nil
+
+      ;; Follow symlinks to VC-controlled files without warning
+      vc-follow-symlinks t
+
+      ;; Don't warn on advice
+      ad-redefinition-action 'accept
+
+      ;; Revert Dired and other buffers
+      global-auto-revert-non-file-buffers t
+
+      ;; Silence compiler warnings as they can be pretty disruptive
+      native-comp-async-report-warnings-errors nil
+
+      visible-bell t
+      markdown-enable-math t
+
+      ;; Enable custom file
+      custom-file (concat user-emacs-directory "custom.el"))
+
+;; Local custom file if possible
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; Font
+(set-frame-font "JetBrains Mono 13")
+
+;; Core modes
+(repeat-mode 1)                ;; Enable repeating key maps
+(menu-bar-mode 0)              ;; Hide the menu bar
+(tool-bar-mode 0)              ;; Hide the tool bar
+(savehist-mode 1)              ;; Save minibuffer history
+(scroll-bar-mode 0)            ;; Hide the scroll bar
+(xterm-mouse-mode 1)           ;; Enable mouse events in terminal Emacs
+(display-time-mode 1)          ;; Display time in mode line / tab bar
+(column-number-mode 1)         ;; Show column number on mode line
+(tab-bar-history-mode 1)       ;; Remember previous tab window configurations
+(global-visual-line-mode 1)    ;; Visually wrap long lines in all buffers
+(global-auto-revert-mode 1)    ;; Refresh buffers with changed local files
+(global-display-line-numbers-mode t) ;; Display line numbers
+(auto-save-visited-mode 1) ;; Save to original file
+
+
+;; Tabs to spaces
+(setq-default indent-tabs-mode nil
+	            tab-width 2)
+
+(setopt tab-always-indent 'complete
+        read-buffer-completion-ignore-case t
+        read-file-name-completion-ignore-case t
+
+        ;; This *may* need to be set to 'always just so that you don't
+        ;; miss other possible good completions that match the input
+        ;; string.
+        completion-auto-help t
+
+        ;; Include more information with completion listings
+        completions-detailed t
+
+        ;; Move focus to the completions window after hitting tab
+        ;; twice.
+        completion-auto-select 'second-tab
+
+        ;; If there are 3 or less completion candidates, don't pop up
+        ;; a window, just cycle through them.
+        completion-cycle-threshold 3
+
+        ;; Cycle through completion options vertically, not
+        ;; horizontally.
+        completions-format 'vertical
+
+        ;; Sort recently used completions first.
+        completions-sort 'historical
+
+        ;; Only show up to 10 lines in the completions window.
+        completions-max-height 10
+
+        ;; Don't show the unneeded help string at the top of the
+        ;; completions buffer.
+        completion-show-help nil
+
+        ;; Add more `completion-styles' to improve candidate selection.
+        completion-styles '(basic partial-completion substring initials))
+
+;; auto-mode-alist entries
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-ts-mode))
+
+;; Super save
+(use-package super-save
+  :ensure t
+  :config
+  (super-save-mode +1))
+
+;; Markdown mode
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+         ("C-c C-e" . markdown-do)))
+
+;; Tuareg
+(use-package tuareg
+  :ensure t
+  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+
+;; Eglot
+(use-package eglot
+  :ensure t
+  :hook
+  (typescript-ts-mode . eglot-ensure)
+  (tsx-ts-mode . eglot-ensure)
+  (nix-ts-mode . eglot-ensure)
+  (python-ts-mode . eglot-ensure)
+  (go-ts-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs
+               '(nix-ts-mode . ("nixd")))
+  (add-to-list 'eglot-server-programs
+               '(python-ts-mode . ("pylsp")))
+  (add-to-list 'eglot-server-programs
+               '(go-ts-mode . ("gopls")))
+    (add-to-list 'eglot-server-programs
+               '(kotlin-ts-mode . ("kotlin-language-server")))
+  (setq completion-category-overrides '((eglot (styles . (orderless))))))
+
+(use-package ocaml-eglot
+  :ensure t
+  :after tuareg
+  :hook
+  (tuareg-mode . ocaml-eglot)
+  (ocaml-eglot . eglot-ensure))
+
+(use-package smartparens
+  :ensure t
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode 1))
+
+;; Editorconfig
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
+;; Vertico
+(use-package vertico
+  :init
+  (vertico-mode))
+
+;; Corfu
+(use-package corfu
+  :custom
+  (corfu-auto t)
+  (corfu-auto-prefix 1)
+  (corfu-cycle t)
+  :init
+  (global-corfu-mode))
+
+;; Git gutter
+(global-git-gutter-mode t)
+(custom-set-variables
+ '(git-gutter:update-interval 1))
+(custom-set-variables
+ '(git-gutter:modified-sign " ")
+ '(git-gutter:added-sign "+")
+ '(git-gutter:deleted-sign "-"))
+(set-face-background 'git-gutter:modified "orange")
+(set-face-foreground 'git-gutter:added "green")
+(set-face-foreground 'git-gutter:deleted "red")
+
+;; exec-path-from-shell
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs '("SSH_AUTH_SOCK")))
+
+(use-package direnv
+  :ensure t
+  :config
+  (direnv-mode))
+
+;; Undo tree
+(use-package undo-tree
+  :config
+  (setq undo-tree-auto-save-history nil)
+  (global-undo-tree-mode))
+
+(use-package fzf
+  :bind
+  (("C-t" . fzf-git-files)
+   ("C-r" . fzf-git-grep-fuzzy))
+  :config
+  (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
+        fzf/git-grep-args "-i --line-number %s"
+        fzf/grep-command "grep -nrH"
+        fzf/position-bottom t
+        fzf/window-height 15)
+  (defun fzf-git-grep-fuzzy ()
+    (interactive)
+    (let* ((fzf--target-validator (fzf--use-validator
+                                   (function fzf--pass-through)))
+           (fzf--extractor-list (fzf--use-extractor
+                                 (list fzf--file-lnum-regexp 1 2)))
+           (git-root (locate-dominating-file default-directory ".git")))
+      (if git-root
+          (fzf--with-command-and-args
+           "git grep --line-number ."
+           #'fzf--action-find-file-with-line
+           "--delimiter : --nth 3.."
+           git-root)
+        (user-error "Not inside a Git repository")))))
+
+(use-package avy
+  :ensure t
+  :config
+  (global-set-key (kbd "C-'") 'avy-goto-char-2))
+
+(defun ueda/delete-backward-word ()
+  (interactive)
+  (delete-region (point) (progn (backward-word) (point))))
+
+;; TODO  I probably don't need all these
+(global-set-key (kbd "C-<backspace>") #'ueda/delete-backward-word)
+(global-set-key (kbd "M-<backspace>") #'ueda/delete-backward-word)
+(global-set-key (kbd "ESC <trash>") 'ueda/delete-backward-word)
+(global-set-key (kbd "M-DEL") 'ueda/delete-backward-word)
+(global-set-key (kbd "ESC <backspace>") 'ueda/delete-backward-word)
+
+(global-set-key (kbd "s-q") nil)
+(global-set-key (kbd "C-x C-c") nil)
+
+(global-unset-key [C-wheel-up])
+(global-unset-key [C-wheel-down])
+
+;; (setq ns-option-modifier 'none)
+;; (setq ns-right-option-modifier 'none)
+(setq ns-command-modifier 'none)
+
+(global-unset-key (kbd "<up>"))
+(global-unset-key (kbd "<down>"))
+(global-unset-key (kbd "<left>"))
+(global-unset-key (kbd "<right>"))
+
+(global-set-key (kbd "C-x <right>") nil)
+(global-set-key (kbd "C-x <left>") nil)
