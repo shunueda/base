@@ -235,6 +235,12 @@
            git-root)
         (user-error "Not inside a Git repository")))))
 
+(defun ueda/sync-ghq-to-project-el ()
+  (interactive)
+  (let ((paths (split-string (shell-command-to-string "ghq list --full-path") "\n" t)))
+    (dolist (path paths)
+      (project-remember-projects-under path))))
+
 (use-package avy
   :ensure t
   :config
