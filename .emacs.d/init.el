@@ -32,6 +32,9 @@
       visible-bell t
       markdown-enable-math t
 
+      ;; Disable GUI popup
+      use-dialog-box nil
+
       ;; Enable custom file
       custom-file (concat user-emacs-directory "custom.el"))
 
@@ -109,6 +112,7 @@
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
 
 ;; Super save
 (use-package super-save
@@ -133,6 +137,7 @@
 (use-package eglot
   :ensure t
   :hook
+  (rust-ts-mode . eglot-ensure)
   (typescript-ts-mode . eglot-ensure)
   (tsx-ts-mode . eglot-ensure)
   (nix-ts-mode . eglot-ensure)
@@ -145,8 +150,11 @@
                '(python-ts-mode . ("pylsp")))
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls")))
-    (add-to-list 'eglot-server-programs
+  (add-to-list 'eglot-server-programs
                '(kotlin-ts-mode . ("kotlin-language-server")))
+  (add-to-list 'eglot-server-programs
+             '((rust-ts-mode rust-mode) .
+               ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
   (setq completion-category-overrides '((eglot (styles . (orderless))))))
 
 (use-package ocaml-eglot

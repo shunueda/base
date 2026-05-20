@@ -84,6 +84,7 @@
               smartparens
               treesit-grammars.with-all-grammars
               kotlin-ts-mode
+              rust-mode
               tuareg
               paredit
               multiple-cursors
