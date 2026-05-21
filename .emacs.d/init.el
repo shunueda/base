@@ -113,6 +113,7 @@
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-ts-mode))
 
 ;; Super save
 (use-package super-save

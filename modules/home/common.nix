@@ -93,6 +93,7 @@
               zenburn-theme
               super-save
               markdown-mode
+              typst-ts-mode
             ];
         };
         fzf.enable = true;

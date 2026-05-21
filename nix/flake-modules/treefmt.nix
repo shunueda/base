@@ -18,6 +18,7 @@
       };
       shellcheck.enable = true;
       typos.enable = true;
+      typstyle.enable = true;
       # keep-sorted end
     };
     settings.global.excludes = [ "*/gen/*" ];
