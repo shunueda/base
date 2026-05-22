@@ -59,9 +59,15 @@
     exp.role,
     exp.location,
   )
-
   #for desc in exp.descriptions [
-    - #desc
+    #if type(desc) == str [
+      - #desc
+    ] else [
+      - #desc.first()
+        #for sub in desc.slice(1) [
+          - #sub
+        ]
+    ]
   ]
 ]
 
