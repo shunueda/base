@@ -1,4 +1,8 @@
-#let data = json("cv.json")
+#let data = yaml(
+  bytes(
+    sys.inputs.at("data"),
+  ),
+)
 
 #set page(
   paper: "us-letter",

@@ -130,3 +130,6 @@ terraform.rc
 ### Nix ###
 result
 result-*
+
+### Custom ###
+*.pdf
