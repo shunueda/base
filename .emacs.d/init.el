@@ -121,6 +121,11 @@
   :config
   (super-save-mode +1))
 
+(use-package sops
+  :ensure t
+  :init
+  (global-sops-mode 1))
+
 ;; Markdown mode
 (use-package markdown-mode
   :ensure t

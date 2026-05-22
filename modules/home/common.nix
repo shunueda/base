@@ -94,6 +94,7 @@
               super-save
               markdown-mode
               typst-ts-mode
+              sops
             ];
         };
         fzf.enable = true;
