@@ -288,3 +288,8 @@
 
 (global-set-key (kbd "C-x <right>") nil)
 (global-set-key (kbd "C-x <left>") nil)
+
+(define-key global-map (kbd "C-h") 'delete-backward-char)
+
+(define-key key-translation-map (kbd "<backspace>") [nil])
+(define-key key-translation-map (kbd "DEL") [nil])
