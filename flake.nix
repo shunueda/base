@@ -14,11 +14,11 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # For flakeModules for darwinModules and darwinConfigurations
@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nocommit = {
       url = "github:shunueda/nocommit";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +71,6 @@
         ./modules/home/common.nix
         ./modules/home/ghq.nix
         ./modules/home/qutebrowser.nix
-        ./modules/home/screen.nix
         ./nix/flake-modules/devshells.nix
         ./nix/flake-modules/misc.nix
         ./nix/flake-modules/treefmt.nix

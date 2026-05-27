@@ -32,12 +32,6 @@
               inherit (final.stdenv.hostPlatform) system;
             in
             {
-              # https://github.com/NixOS/nixpkgs/issues/507531
-              # Possible cause: https://github.com/NixOS/nixpkgs/issues/208951
-              direnv = prev.direnv.overrideAttrs (_: {
-                doCheck = false;
-              });
-
               # Steam in nixpkgs doesn't support darwin
               inherit
                 (import inputs.nixpkgs-steam {
@@ -47,10 +41,8 @@
                 steam
                 ;
 
-              inherit (inputs.nixpkgs-unstable.legacyPackages.${system})
-                # Broken in 25.11: https://github.com/NixOS/nixpkgs/issues/511265
-                jetbrains-mono
-                ;
+              # Packages I want to backport from unstable
+              inherit (inputs.nixpkgs-unstable.legacyPackages.${system}) ;
             }
           )
         ];

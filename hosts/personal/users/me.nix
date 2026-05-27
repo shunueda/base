@@ -1,15 +1,8 @@
-{
-  self,
-  config,
-  pkgs,
-  ...
-}:
+{ self, ... }:
 {
   imports = [ self.homeModules.common ];
-
-  home.packages = with pkgs; [ prismlauncher ];
-
   programs = {
     discord.enable = true;
+    prismlauncher.enable = true;
   };
 }

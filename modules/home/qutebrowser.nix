@@ -3,7 +3,8 @@
     { ... }:
     {
       programs.qutebrowser = {
-        enable = true;
+        # TODO
+        enable = false;
         enableDefaultBindings = false;
         searchEngines = {
           DEFAULT = "https://duckduckgo.com/?q={}";

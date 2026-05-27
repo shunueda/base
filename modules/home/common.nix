@@ -5,7 +5,6 @@
       self,
       pkgs,
       config,
-      lib,
       ...
     }:
     let
@@ -16,8 +15,6 @@
         inputs.nocommit.homeModules.default
         inputs.sops-nix.homeManagerModules.sops
         self.homeModules.ghq
-        # TODO: remove after 26.05 release
-        self.homeModules.screen
         self.homeModules.qutebrowser
       ];
       xdg.enable = true;
@@ -57,7 +54,6 @@
           historyFileSize = 1000000;
           historyFile = "${config.home.homeDirectory}/.sh_history";
         };
-        difftastic.enable = true;
         direnv = {
           enable = true;
           nix-direnv.enable = true;
@@ -136,43 +132,23 @@
           };
         };
         home-manager.enable = true;
-        jujutsu = {
+        mergiraf = {
+          enable = true;
+          enableGitIntegration = true;
+        };
+        nix-search-tv = {
           enable = true;
           settings = {
-            user = {
-              name = "Shun Ueda";
-              email = "me@shu.nu";
-            };
-            remotes.origin.auto-track-bookmarks = "*";
-            ui = {
-              # TODO: can remove at 26.05 release
-              merge-editor = "mergiraf";
-              # TODO: can remove at 26.05 release
-              diff-formatter = [
-                (lib.getExe config.programs.difftastic.package)
-                "--color=always"
-                "--sort-paths"
-                "$left"
-                "$right"
-              ];
-            };
-            signing = {
-              behavior = "own";
-              backend = "gpg";
-              key = "0CCE2D6849A8D4EF";
-            };
-            # TODO: can remove at 26.05 release
-            merge-tools = {
-              mergiraf.program = lib.getExe config.programs.mergiraf.package;
-            };
-            colors = {
-              "diff token" = {
-                underline = false;
-              };
-            };
+            indexes = [
+              "home-manager"
+              "noogle"
+              "nixpkgs"
+            ];
+
+            update_interval = "3h";
+            enable_waiting_message = true;
           };
         };
-        mergiraf.enable = true;
         nocommit.enable = true;
         password-store.enable = true;
         screen = {
@@ -181,12 +157,6 @@
         ssh = {
           enable = true;
           enableDefaultConfig = false;
-          matchBlocks = {
-            "github.com" = {
-              user = "git";
-              identitiesOnly = false;
-            };
-          };
         };
         starship = {
           enable = true;
