@@ -53,6 +53,19 @@
           historySize = 1000000;
           historyFileSize = 1000000;
           historyFile = "${config.home.homeDirectory}/.sh_history";
+          bashrcExtra = ''
+            sops-read() {
+              local KEY_NAME="$1"
+
+              if [[ -z "$KEY_NAME" ]]; then
+                >&2 echo "Usage: sops-read <KEY_NAME>"
+                return 1
+              fi
+
+              sops -d --output-type=json "${../../secrets/common.yaml}" |
+                jq -r ".''${KEY_NAME}"
+            }
+          '';
         };
         direnv = {
           enable = true;
