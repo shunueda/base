@@ -93,6 +93,9 @@
               sops
             ];
         };
+        firefox = {
+          enable = true;
+        };
         fzf.enable = true;
         ghq = {
           enable = true;

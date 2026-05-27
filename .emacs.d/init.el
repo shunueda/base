@@ -102,6 +102,8 @@
         ;; Add more `completion-styles' to improve candidate selection.
         completion-styles '(basic partial-completion substring initials))
 
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 ;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
@@ -249,6 +251,15 @@
            git-root)
         (user-error "Not inside a Git repository")))))
 
+(use-package leetgo
+  :ensure nil
+  :custom
+  (leetgo-directory "~/code/github.com/shunueda/dsa/")
+  :bind
+  (("C-c l p" . leetgo-pick)
+   ("C-c l t" . leetgo-test-current)
+   ("C-c l s" . leetgo-submit-current)))
+
 (defun ueda/sync-ghq-to-project-el ()
   (interactive)
   (let ((paths (split-string (shell-command-to-string "ghq list --full-path") "\n" t)))
@@ -293,3 +304,4 @@
 
 (define-key key-translation-map (kbd "<backspace>") [nil])
 (define-key key-translation-map (kbd "DEL") [nil])
+
