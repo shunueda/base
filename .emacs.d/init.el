@@ -36,7 +36,11 @@
       use-dialog-box nil
 
       ;; Enable custom file
-      custom-file (concat user-emacs-directory "custom.el"))
+      custom-file (concat user-emacs-directory "custom.el")
+
+      markdown-display-remote-images t
+
+      treesit-font-lock-level 4)
 
 ;; Local custom file if possible
 (when (file-exists-p custom-file)
@@ -186,8 +190,15 @@
 
 ;; Vertico
 (use-package vertico
+  :ensure t
   :init
-  (vertico-mode))
+  (vertico-mode 1))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; Corfu
 (use-package corfu
@@ -256,10 +267,9 @@
   :custom
   (leetgo-directory "~/code/github.com/shunueda/dsa/")
   :bind
-  (("C-c l p" . leetgo-pick)
+  (("C-c l p" . leetgo-pick-with-emacs-fzf)
    ("C-c l t" . leetgo-test-current)
    ("C-c l s" . leetgo-submit-current)))
-
 (defun ueda/sync-ghq-to-project-el ()
   (interactive)
   (let ((paths (split-string (shell-command-to-string "ghq list --full-path") "\n" t)))

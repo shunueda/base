@@ -88,6 +88,7 @@
               vertico
               zenburn-theme
               super-save
+              orderless
               markdown-mode
               typst-ts-mode
               sops
@@ -198,7 +199,6 @@
             maccy
             orbstack
             sops
-            nixd
             steam
             jetbrains-mono
           ])
