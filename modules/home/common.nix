@@ -80,31 +80,34 @@
           };
           extraPackages =
             epkgs: with epkgs; [
+              # keep-sorted start
               avy
               corfu
               direnv
               exec-path-from-shell
               fzf
-              git-gutter
               ghq
+              git-gutter
+              gptel
+              kotlin-ts-mode
               magit
+              markdown-mode
+              multiple-cursors
               nix-ts-mode
               ocaml-eglot
-              smartparens
-              treesit-grammars.with-all-grammars
-              kotlin-ts-mode
-              rust-mode
-              tuareg
+              orderless
               paredit
-              multiple-cursors
+              rust-mode
+              smartparens
+              sops
+              super-save
+              treesit-grammars.with-all-grammars
+              tuareg
+              typst-ts-mode
               undo-tree
               vertico
               zenburn-theme
-              super-save
-              orderless
-              markdown-mode
-              typst-ts-mode
-              sops
+              # keep-sorted end
             ];
         };
         firefox = {

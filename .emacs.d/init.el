@@ -46,6 +46,22 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(defun ueda/delete-backward-word ()
+  (interactive)
+  (delete-region (point) (progn (backward-word) (point))))
+
+(defun ueda/sops-read (key-name)
+  ;; TODO theres no way this is the best way
+  (let ((process-environment (cons "BASH_ENV=~/.bashrc" process-environment)))
+    (string-trim
+     (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name))))))
+
+(defun ueda/sync-ghq-to-project-el ()
+  (interactive)
+  (let ((paths (split-string (shell-command-to-string "ghq list --full-path") "\n" t)))
+    (dolist (path paths)
+      (project-remember-projects-under path))))
+
 ;; Font
 (set-frame-font "JetBrains Mono 13")
 
@@ -262,28 +278,32 @@
            git-root)
         (user-error "Not inside a Git repository")))))
 
+(use-package gptel
+  :ensure t
+  :config
+  (setq gptel-backend
+        (gptel-make-openai "OpenRouter"
+          :host "openrouter.ai"
+          :endpoint "/api/v1/chat/completions"
+          :stream t
+          :key (lambda () (ueda/sops-read "OPENROUTER_API_KEY"))
+          :models '(x-ai/grok-4.20)))
+  (setq gptel-model 'x-ai/grok-4.20))
+
 (use-package leetgo
   :ensure nil
   :custom
+  ;; TODO hard coded
   (leetgo-directory "~/code/github.com/shunueda/dsa/")
   :bind
   (("C-c l p" . leetgo-pick-with-emacs-fzf)
    ("C-c l t" . leetgo-test-current)
    ("C-c l s" . leetgo-submit-current)))
-(defun ueda/sync-ghq-to-project-el ()
-  (interactive)
-  (let ((paths (split-string (shell-command-to-string "ghq list --full-path") "\n" t)))
-    (dolist (path paths)
-      (project-remember-projects-under path))))
 
 (use-package avy
   :ensure t
   :config
   (global-set-key (kbd "C-'") 'avy-goto-char-2))
-
-(defun ueda/delete-backward-word ()
-  (interactive)
-  (delete-region (point) (progn (backward-word) (point))))
 
 ;; TODO  I probably don't need all these
 (global-set-key (kbd "C-<backspace>") #'ueda/delete-backward-word)
@@ -314,4 +334,3 @@
 
 (define-key key-translation-map (kbd "<backspace>") [nil])
 (define-key key-translation-map (kbd "DEL") [nil])
-
