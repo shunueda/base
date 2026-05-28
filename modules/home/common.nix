@@ -222,10 +222,7 @@
             steam
             jetbrains-mono
           ])
-          ++ (with self.packages.${system}; [
-            homerow
-            ensure-jupyter-no-output
-          ]);
+          ++ [ self.packages.${system}.homerow ];
         file = {
           ".emacs.d" = {
             source = ../../.emacs.d;

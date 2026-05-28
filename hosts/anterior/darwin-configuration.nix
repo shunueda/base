@@ -2,6 +2,7 @@
 let
   user = "me";
   specialArgs = { inherit self inputs; };
+  system = "aarch64-darwin";
 in
 {
   flake.darwinConfigurations.anterior = inputs.nix-darwin.lib.darwinSystem {
@@ -10,10 +11,14 @@ in
       self.darwinModules.common
       self.darwinModules.linux-builder
       {
-        nixpkgs.hostPlatform = "aarch64-darwin";
+        nixpkgs.hostPlatform = system;
         users.users.${user}.home = "/Users/${user}";
         system.primaryUser = user;
         system.stateVersion = 6;
+        environment.systemPackages = [
+          self.packages.${system}.ensure-jupyter-no-output
+          inputs.nocommit.packages.${system}.default
+        ];
         home-manager.extraSpecialArgs = specialArgs;
         home-manager.users.${user} = {
           imports = [ ./users/me.nix ];

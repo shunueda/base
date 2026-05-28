@@ -11,7 +11,7 @@
             "nix-command"
             "flakes"
           ];
-          sandbox = false;
+          sandbox = "relaxed";
           substituters = [
             "https://nix-cache.oyasai.io"
             "https://anterior-public.cachix.org"

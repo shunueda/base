@@ -2,6 +2,7 @@
 let
   user = "me";
   specialArgs = { inherit self inputs; };
+  system = "aarch64-darwin";
 in
 {
   flake.darwinConfigurations.personal = inputs.nix-darwin.lib.darwinSystem {
@@ -9,7 +10,7 @@ in
     modules = [
       self.darwinModules.common
       {
-        nixpkgs.hostPlatform = "aarch64-darwin";
+        nixpkgs.hostPlatform = system;
         users.users.${user}.home = "/Users/${user}";
         system.primaryUser = user;
         system.stateVersion = 6;
