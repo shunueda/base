@@ -169,7 +169,11 @@
             enable_waiting_message = true;
           };
         };
-        nocommit.enable = true;
+        nocommit = {
+          enable = true;
+          enableGitIntegration = true;
+          useConfigBasedHook = true;
+        };
         password-store.enable = true;
         screen = {
           enable = true;
