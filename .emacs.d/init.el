@@ -51,10 +51,8 @@
   (delete-region (point) (progn (backward-word) (point))))
 
 (defun ueda/sops-read (key-name)
-  ;; TODO theres no way this is the best way
-  (let ((process-environment (cons "BASH_ENV=~/.bashrc" process-environment)))
-    (string-trim
-     (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name))))))
+  (string-trim
+     (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name)))
 
 (defun ueda/sync-ghq-to-project-el ()
   (interactive)
