@@ -46,10 +46,6 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(defun ueda/delete-backward-word ()
-  (interactive)
-  (delete-region (point) (progn (backward-word) (point))))
-
 (defun ueda/sops-read (key-name)
   (string-trim
      (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name)))
@@ -302,13 +298,6 @@
   :ensure t
   :config
   (global-set-key (kbd "C-'") 'avy-goto-char-2))
-
-;; TODO  I probably don't need all these
-(global-set-key (kbd "C-<backspace>") #'ueda/delete-backward-word)
-(global-set-key (kbd "M-<backspace>") #'ueda/delete-backward-word)
-(global-set-key (kbd "ESC <trash>") 'ueda/delete-backward-word)
-(global-set-key (kbd "M-DEL") 'ueda/delete-backward-word)
-(global-set-key (kbd "ESC <backspace>") 'ueda/delete-backward-word)
 
 (global-set-key (kbd "s-q") nil)
 (global-set-key (kbd "C-x C-c") nil)
