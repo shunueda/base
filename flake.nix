@@ -26,7 +26,6 @@
       url = "github:nix-darwin/nix-darwin/pull/1690/head";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-steam.url = "github:nixos/nixpkgs/pull/499915/head";
     nixpkgs-terraform-providers-bin = {
       url = "github:nix-community/nixpkgs-terraform-providers-bin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,7 +69,6 @@
         ./modules/darwin/linux-builder.nix
         ./modules/home/common.nix
         ./modules/home/ghq.nix
-        ./modules/home/qutebrowser.nix
         ./nix/flake-modules/devshells.nix
         ./nix/flake-modules/misc.nix
         ./nix/flake-modules/treefmt.nix

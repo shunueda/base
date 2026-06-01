@@ -25,27 +25,6 @@
       };
       nixpkgs = {
         config.allowUnfree = true;
-        overlays = [
-          (
-            final: prev:
-            let
-              inherit (final.stdenv.hostPlatform) system;
-            in
-            {
-              # Steam in nixpkgs doesn't support darwin
-              inherit
-                (import inputs.nixpkgs-steam {
-                  inherit system;
-                  config.allowUnfree = true;
-                })
-                steam
-                ;
-
-              # Packages I want to backport from unstable
-              inherit (inputs.nixpkgs-unstable.legacyPackages.${system}) ;
-            }
-          )
-        ];
       };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;

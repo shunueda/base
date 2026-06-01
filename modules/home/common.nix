@@ -15,7 +15,6 @@
         inputs.nocommit.homeModules.default
         inputs.sops-nix.homeManagerModules.sops
         self.homeModules.ghq
-        self.homeModules.qutebrowser
       ];
       xdg.enable = true;
       programs = {
@@ -219,7 +218,6 @@
             maccy
             orbstack
             sops
-            steam
             jetbrains-mono
           ])
           ++ [ self.packages.${system}.homerow ];
