@@ -111,6 +111,42 @@
         };
         firefox = {
           enable = true;
+          profiles.default = {
+            isDefault = true;
+            search = {
+              force = true;
+              default = "ddg";
+            };
+            extensions = {
+              packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                ublock-origin
+                passff
+              ];
+              settings."uBlock0@raymondhill.net".settings = {
+                selectedFilterLists = [
+                  "ublock-filters"
+                  "ublock-badware"
+                  "ublock-privacy"
+                  "ublock-unbreak"
+                  "ublock-quick-fixes"
+                  "fanboy-annoyance"
+                ];
+              };
+              force = true;
+            };
+            settings = {
+              "extensions.autoDisableScopes" = 0; # Enable extensions automatically
+              "browser.startup.homepage" = "about:blank";
+              "browser.startup.page" = 1; # homepage
+              "browser.newtab.url" = "about:blank";
+              # Disable AI stuffs
+              "browser.ml.enable" = false;
+              "extensions.ai.enabled" = false;
+              "sidebar.ai.enabled" = false;
+              "browser.ml.chat.enabled" = false;
+              "browser.ml.chat.sidebar" = false;
+            };
+          };
         };
         fzf.enable = true;
         ghq = {
@@ -175,10 +211,12 @@
         };
         password-store = {
           enable = true;
-          package = pkgs.pass.withExtensions (exts: with exts; [
-            pass-file
-            pass-otp
-          ]);
+          package = pkgs.pass.withExtensions (
+            exts: with exts; [
+              pass-file
+              pass-otp
+            ]
+          );
           settings = {
             # TODO: don't hard-code
             PASSWORD_STORE_KEY = "6E370FA33F7CDE7B5C9018910CCE2D6849A8D4EF";

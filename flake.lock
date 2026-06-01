@@ -222,6 +222,29 @@
         "type": "github"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780321484,
+        "narHash": "sha256-+23mhdhWNKGmxtL4GZpirM/dLFJB7qhntST0EruCzHk=",
+        "owner": "nix-community",
+        "repo": "nur",
+        "rev": "c0703b28500317a4e115799fceda53d0edc47e2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nur",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "devshell": "devshell",
@@ -234,6 +257,7 @@
         "nixpkgs-terraform-providers-bin": "nixpkgs-terraform-providers-bin",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nocommit": "nocommit",
+        "nur": "nur",
         "sops-nix": "sops-nix",
         "systems": "systems",
         "tools": "tools",

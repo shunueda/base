@@ -25,6 +25,7 @@
       };
       nixpkgs = {
         config.allowUnfree = true;
+        overlays = [ inputs.nur.overlays.default ];
       };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
