@@ -48,7 +48,7 @@
 
 (defun ueda/sops-read (key-name)
   (string-trim
-     (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name)))
+   (shell-command-to-string (format "sops-read %s" (shell-quote-argument key-name)))))
 
 (defun ueda/sync-ghq-to-project-el ()
   (interactive)

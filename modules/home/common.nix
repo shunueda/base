@@ -173,7 +173,17 @@
           enableGitIntegration = true;
           useConfigBasedHook = true;
         };
-        password-store.enable = true;
+        password-store = {
+          enable = true;
+          package = pkgs.pass.withExtensions (exts: with exts; [
+            pass-file
+            pass-otp
+          ]);
+          settings = {
+            # TODO: don't hard-code
+            PASSWORD_STORE_KEY = "6E370FA33F7CDE7B5C9018910CCE2D6849A8D4EF";
+          };
+        };
         screen = {
           enable = true;
         };
