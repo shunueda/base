@@ -111,6 +111,10 @@
         };
         firefox = {
           enable = true;
+          policies = {
+            GenerativeAI.Enabled = false;
+          };
+          nativeMessagingHosts = with pkgs; [ passff-host ];
           profiles.default = {
             isDefault = true;
             search = {
@@ -139,12 +143,6 @@
               "browser.startup.homepage" = "about:blank";
               "browser.startup.page" = 1; # homepage
               "browser.newtab.url" = "about:blank";
-              # Disable AI stuffs
-              "browser.ml.enable" = false;
-              "extensions.ai.enabled" = false;
-              "sidebar.ai.enabled" = false;
-              "browser.ml.chat.enabled" = false;
-              "browser.ml.chat.sidebar" = false;
             };
           };
         };
