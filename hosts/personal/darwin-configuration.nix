@@ -17,7 +17,7 @@ in
         home-manager.extraSpecialArgs = specialArgs;
         home-manager.users.${user} = {
           imports = [ ./users/me.nix ];
-          home.stateVersion = "25.11";
+          home.stateVersion = "26.05";
         };
       }
     ];

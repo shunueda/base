@@ -143,6 +143,7 @@
               "browser.startup.homepage" = "about:blank";
               "browser.startup.page" = 1; # homepage
               "browser.newtab.url" = "about:blank";
+              "signon.rememberSignons" = false;
             };
           };
         };
@@ -226,9 +227,6 @@
             PASSWORD_STORE_KEY = "6E370FA33F7CDE7B5C9018910CCE2D6849A8D4EF";
           };
         };
-        screen = {
-          enable = true;
-        };
         ssh = {
           enable = true;
           enableDefaultConfig = false;
@@ -255,6 +253,9 @@
         # keep-sorted end
       };
       services = {
+        colima = {
+          enable = true;
+        };
         gpg-agent = {
           enable = true;
           enableSshSupport = true;
@@ -269,6 +270,7 @@
           (with pkgs; [
             sops
             jetbrains-mono
+            docker
           ])
           ++ [ self.packages.${system}.homerow ];
         file = {
