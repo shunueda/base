@@ -180,6 +180,12 @@
         };
         gpg = {
           enable = true;
+          publicKeys = [
+            {
+              source = ../../ueda.asc;
+              trust = "ultimate";
+            }
+          ];
           scdaemonSettings = {
             disable-ccid = true;
           };
@@ -261,8 +267,6 @@
       home = {
         packages =
           (with pkgs; [
-            maccy
-            orbstack
             sops
             jetbrains-mono
           ])
