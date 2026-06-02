@@ -5,6 +5,7 @@
       self,
       pkgs,
       config,
+      lib,
       ...
     }:
     let
@@ -105,6 +106,7 @@
               typst-ts-mode
               undo-tree
               vertico
+              vterm
               zenburn-theme
               # keep-sorted end
             ];
@@ -161,15 +163,33 @@
           };
           nativeMessagingHosts = with pkgs; [ passff-host ];
           profiles.default = {
+            search = {
+              force = true;
+              default = "ddg-noai";
+              engines = {
+                "ddg-noai" = {
+                  urls = [
+                    {
+                      template = "https://noai.duckduckgo.com/";
+                      params = [ (lib.nameValuePair "q" "{searchTerms}") ];
+                    }
+                  ];
+                  definedAliases = [ "@noai" ];
+                };
+              };
+            };
             extensions = {
+              force = true;
               packages = with pkgs.nur.repos.rycee.firefox-addons; [ passff ];
             };
             settings = {
+              force = true;
               "extensions.autoDisableScopes" = 0; # Enable extensions automatically
               "browser.startup.homepage" = "about:blank";
               "browser.startup.page" = 1; # homepage
               "browser.newtab.url" = "about:blank";
               "signon.rememberSignons" = false;
+              "browser.toolbars.bookmarks.visibility" = "never";
             };
           };
         };
