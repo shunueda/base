@@ -109,34 +109,18 @@
               # keep-sorted end
             ];
         };
-        firefox = {
+        librewolf = {
           enable = true;
           policies = {
             GenerativeAI.Enabled = false;
           };
           nativeMessagingHosts = with pkgs; [ passff-host ];
           profiles.default = {
-            isDefault = true;
-            search = {
-              force = true;
-              default = "ddg";
-            };
             extensions = {
+              force = true;
               packages = with pkgs.nur.repos.rycee.firefox-addons; [
-                ublock-origin
                 passff
               ];
-              settings."uBlock0@raymondhill.net".settings = {
-                selectedFilterLists = [
-                  "ublock-filters"
-                  "ublock-badware"
-                  "ublock-privacy"
-                  "ublock-unbreak"
-                  "ublock-quick-fixes"
-                  "fanboy-annoyance"
-                ];
-              };
-              force = true;
             };
             settings = {
               "extensions.autoDisableScopes" = 0; # Enable extensions automatically
@@ -204,7 +188,6 @@
               "noogle"
               "nixpkgs"
             ];
-
             update_interval = "3h";
             enable_waiting_message = true;
           };

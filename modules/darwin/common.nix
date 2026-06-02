@@ -34,7 +34,7 @@
       home-manager.useUserPackages = true;
       services.defaultBrowser = {
         enable = true;
-        browser = "firefox";
+        browser = "librewolf";
       };
       system = {
         startup.chime = false;
