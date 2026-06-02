@@ -3,7 +3,10 @@
   flake.darwinModules.common =
     { ... }:
     {
-      imports = [ inputs.home-manager.darwinModules.home-manager ];
+      imports = [
+        inputs.home-manager.darwinModules.home-manager
+        ./default-browser.nix
+      ];
       nix = {
         settings = {
           allow-import-from-derivation = false;
@@ -29,6 +32,10 @@
       };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      services.defaultBrowser = {
+        enable = true;
+        browser = "firefox";
+      };
       system = {
         startup.chime = false;
         defaults = {

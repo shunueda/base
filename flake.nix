@@ -73,7 +73,6 @@
         ./modules/darwin/common.nix
         ./modules/darwin/linux-builder.nix
         ./modules/home/common.nix
-        ./modules/home/ghq.nix
         ./nix/flake-modules/devshells.nix
         ./nix/flake-modules/misc.nix
         ./nix/flake-modules/treefmt.nix

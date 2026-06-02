@@ -14,7 +14,7 @@
       imports = [
         inputs.nocommit.homeModules.default
         inputs.sops-nix.homeManagerModules.sops
-        self.homeModules.ghq
+        ./ghq.nix
       ];
       xdg.enable = true;
       programs = {
