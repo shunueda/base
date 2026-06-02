@@ -109,28 +109,6 @@
               # keep-sorted end
             ];
         };
-        librewolf = {
-          enable = true;
-          policies = {
-            GenerativeAI.Enabled = false;
-          };
-          nativeMessagingHosts = with pkgs; [ passff-host ];
-          profiles.default = {
-            extensions = {
-              force = true;
-              packages = with pkgs.nur.repos.rycee.firefox-addons; [
-                passff
-              ];
-            };
-            settings = {
-              "extensions.autoDisableScopes" = 0; # Enable extensions automatically
-              "browser.startup.homepage" = "about:blank";
-              "browser.startup.page" = 1; # homepage
-              "browser.newtab.url" = "about:blank";
-              "signon.rememberSignons" = false;
-            };
-          };
-        };
         fzf.enable = true;
         ghq = {
           enable = true;
@@ -176,6 +154,25 @@
           };
         };
         home-manager.enable = true;
+        librewolf = {
+          enable = true;
+          policies = {
+            GenerativeAI.Enabled = false;
+          };
+          nativeMessagingHosts = with pkgs; [ passff-host ];
+          profiles.default = {
+            extensions = {
+              packages = with pkgs.nur.repos.rycee.firefox-addons; [ passff ];
+            };
+            settings = {
+              "extensions.autoDisableScopes" = 0; # Enable extensions automatically
+              "browser.startup.homepage" = "about:blank";
+              "browser.startup.page" = 1; # homepage
+              "browser.newtab.url" = "about:blank";
+              "signon.rememberSignons" = false;
+            };
+          };
+        };
         mergiraf = {
           enable = true;
           enableGitIntegration = true;
@@ -255,7 +252,10 @@
             jetbrains-mono
             docker
           ])
-          ++ [ self.packages.${system}.homerow ];
+          ++ (with self.packages.${system}; [
+            homerow
+            ns
+          ]);
         file = {
           ".emacs.d" = {
             source = ../../.emacs.d;
